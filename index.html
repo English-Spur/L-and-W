@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENGLISH SPUR - Professional Listening Dictation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f3f8;
+            color: #2c3e50;
+            padding: 20px 10px;
+        }
+
+        .app-container {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        .brand-title {
+            font-size: 2.3rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .brand-english {
+            color: #00d2ff;
+        }
+
+        .brand-spur {
+            color: #ff9900;
+        }
+
+        .brand-subtitle {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #f1f2f6;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .brand-caption {
+            font-size: 1rem;
+            font-style: italic;
+            color: #e0e6ed;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 6px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffffff;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 5px 14px;
+            border-radius: 15px;
+        }
+
+        .creator-badge {
+            margin-top: 14px;
+            background: linear-gradient(135deg, #ff9900, #ff5500);
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 800;
+            padding: 7px 22px;
+            border-radius: 25px;
+            display: inline-block;
+            box-shadow: 0 4px 12px rgba(255, 153, 0, 0.35);
+            letter-spacing: 0.5px;
+            border: 2px solid #ffffff;
+        }
+
+        /* Pro Reward & Stats Dashboard */
+        .reward-dashboard {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #f8fafc;
+            padding: 16px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .stat-card {
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #1e3c72;
+        }
+
+        .streak-value {
+            color: #ff5500;
+        }
+
+        /* Accuracy Bar */
+        .accuracy-bar-wrapper {
+            width: 130px;
+            margin: 4px auto 0 auto;
+        }
+
+        .accuracy-bar-background {
+            width: 100%;
+            height: 12px;
+            background-color: #cbd5e1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .accuracy-bar-fill {
+            height: 100%;
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.4s ease, background-color 0.4s ease;
+        }
+
+        .bar-purple { background-color: #8a2be2; }
+        .bar-yellow { background-color: #f59e0b; }
+        .bar-green { background-color: #10b981; }
+
+        .badge-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            background: #10b981;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
+
+        .reset-btn {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .reset-btn:hover {
+            background-color: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        /* Main Workspace */
+        .main-content {
+            padding: 25px 22px;
+        }
+
+        .category-selector {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #334155;
+            font-size: 0.95rem;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 1rem;
+            background-color: #fff;
+            color: #1e293b;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            font-weight: 600;
+        }
+
+        select:focus {
+            border-color: #2a5298;
+        }
+
+        .practice-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 22px;
+            margin-bottom: 20px;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .play-btn {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 11px 22px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+        }
+
+        .play-btn:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .speed-btn {
+            background-color: #e2e8f0;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .speed-btn:hover {
+            background-color: #cbd5e1;
+        }
+
+        .step-info {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #475569;
+            background: #e2e8f0;
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        .status-badge {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-left: 6px;
+        }
+
+        .status-completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 1.05rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.2s;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .input-box:focus {
+            border-color: #2563eb;
+        }
+
+        .action-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .check-btn {
+            flex: 3;
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 13px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);
+        }
+
+        .check-btn:hover {
+            background-color: #059669;
+            transform: translateY(-1px);
+        }
+
+        .hint-btn {
+            flex: 1;
+            background-color: #f59e0b;
+            color: white;
+            border: none;
+            padding: 13px 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .hint-btn:hover {
+            background-color: #d97706;
+        }
+
+        .result-box {
+            margin-top: 15px;
+            padding: 16px;
+            border-radius: 10px;
+            display: none;
+            line-height: 1.5;
+            font-size: 0.98rem;
+        }
+
+        .result-box.success {
+            background-color: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .result-box.error {
+            background-color: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .correct-ans {
+            margin-top: 8px;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #1e293b;
+        }
+
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background-color: #64748b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background-color: #475569;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        footer strong {
+            color: #1e3c72;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <header>
+        <div class="brand-title">
+            <span class="brand-english">ENGLISH</span> <span class="brand-spur">SPUR</span>
+        </div>
+        <div class="brand-subtitle">ONLINE ENGLISH TRAINING ACADEMY</div>
+        <div class="brand-caption">"Empowering Your Voice, Elevating Your Success!"</div>
+        
+        <div class="contact-info">
+            <div class="contact-item">📞 9875340842</div>
+            <div class="contact-item">📞 8158874131</div>
+        </div>
+
+        <div>
+            <div class="creator-badge">⭐ Created by : শোভন কাপড়ী (SHOVAN KAPRI) ⭐</div>
+        </div>
+    </header>
+
+    <!-- Professional Reward & Stats Dashboard -->
+    <div class="reward-dashboard">
+        <div class="stat-card">
+            <div class="stat-label">Total Score</div>
+            <div class="stat-value" id="scoreDisplay">0 PTS</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Streak</div>
+            <div class="stat-value streak-value" id="streakDisplay">🔥 0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Accuracy (<span id="accuracyDisplay">0%</span>)</div>
+            <div class="accuracy-bar-wrapper">
+                <div class="accuracy-bar-background">
+                    <div id="accuracyBarFill" class="accuracy-bar-fill bar-purple"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Badge Level</div>
+            <div class="badge-value" id="badgeDisplay">🥉 Beginner</div>
+        </div>
+
+        <div class="stat-card">
+            <button class="reset-btn" onclick="resetProgress()">🔄 Reset All</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="category-selector">
+            <label for="categorySelect">Select Practice Situation / Topic:</label>
+            <select id="categorySelect" onchange="changeCategory()">
+                <!-- Dynamic Options -->
+            </select>
+        </div>
+
+        <div class="practice-card">
+            <div class="card-top">
+                <div class="audio-controls">
+                    <button class="play-btn" id="playBtn" onclick="playCurrentAudio()">▶ Listen Audio</button>
+                    <button class="speed-btn" id="speedBtn" onclick="toggleSpeed()">⚡ Speed: 0.85x (Normal)</button>
+                </div>
+
+                <div>
+                    <span class="step-info" id="stepInfo">Sentence 1 of 50</span>
+                    <span id="completionStatus" class="status-badge status-pending">⏳ Pending</span>
+                </div>
+            </div>
+
+            <input type="text" id="userInput" class="input-box" placeholder="Type what you hear here..." autocomplete="off">
+
+            <div class="action-row">
+                <button class="check-btn" id="checkBtn" onclick="checkAnswer()">Check Answer (Enter)</button>
+                <button class="hint-btn" id="hintBtn" onclick="giveHint()">💡 Hint (-2 PTS)</button>
+            </div>
+
+            <div class="result-box" id="resultBox">
+                <div id="resultText"></div>
+                <div class="correct-ans" id="correctAns"></div>
+            </div>
+        </div>
+
+        <div class="nav-controls">
+            <button class="nav-btn" id="prevBtn" onclick="navigateSentence(-1)">◀ Previous</button>
+            <button class="nav-btn" id="nextBtn" onclick="navigateSentence(1)">Next ▶</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Powered by <strong>ENGLISH SPUR</strong> — Online English Training Academy</p>
+    </footer>
+</div>
+
+<script>
+    const TOTAL_SYSTEM_SENTENCES = 500;
+
+    // Full 500 Categorized Sentences Structure Embedded
+    const data = {"1. Daily Conversations & Small Talk": ["It's a beautiful day to learn something new.", "How are you doing today?", "What are your plans for the weekend?", "Could you please pass me the salt?", "I'm feeling a bit tired after a long day.", "Let's grab a cup of coffee together.", "What time do you usually wake up in the morning?", "I need to buy some groceries later this evening.", "Have you seen my keys anywhere around here?", "It looks like it's going to rain soon.", "I had a great time talking to you.", "Where are you heading right now?", "Don't forget to turn off the lights before leaving.", "I'm looking forward to our upcoming meeting.", "Can you call me back in about five minutes?", "It's nice to see you again after such a long time.", "What did you have for breakfast today?", "I'm going to take a short walk in the park.", "Please let me know as soon as you arrive.", "I really appreciate your helping hand with this.", "How was your day at work today?", "Do you have any plans for tonight?", "It's always a pleasure chatting with you.", "I am so glad we ran into each other.", "Could you open the window to let fresh air in?", "I am planning to cook dinner tonight.", "What is your favorite pastime on weekends?", "I haven't heard from him in a while.", "Let's meet up sometime next week.", "Take good care of yourself until we meet again.", "I'm feeling much better than yesterday.", "Can you lend me a hand with this box?", "I'm almost ready to leave the house.", "It's getting quite cold outside tonight.", "What kind of music do you like listening to?", "I'll be waiting for you near the main entrance.", "Let's stay in touch through text messages.", "I hope you have a fantastic week ahead.", "I slept really well last night.", "That sounds like a wonderful idea to me.", "I'm sorry for keeping you waiting.", "It's time to start working on our routine.", "Could you please lower the volume a bit?", "I love spending time outdoors in nature.", "Everything will turn out just fine.", "I am really proud of what you achieved.", "Let's make the best out of today.", "I'll catch up with you later in the evening.", "Enjoy your meal and have a nice time.", "Thank you so much for your warm hospitality."], "2. Workplace & Professional Communication": ["Please send me the weekly performance report by noon.", "We need to schedule a team meeting for tomorrow morning.", "Could you review this draft document when you're free?", "I'll follow up with the client later this afternoon.", "Let's discuss the new project guidelines in detail.", "The deadline for this task is end of day.", "I've attached the required files to this email.", "We should brainstorm some fresh ideas for the campaign.", "Thank you for your prompt response to my inquiry.", "Can we reschedule our conference call to Thursday?", "The project is progressing right on schedule.", "Please make sure to double-check all figures.", "I am currently working on the final presentation.", "We appreciate your hard work and dedication.", "Let's assign clear tasks to everyone on the team.", "Do you have any suggestions for improving this workflow?", "I will be out of the office next Monday.", "Please update the project tracking spreadsheet.", "We achieved our quarterly goals well ahead of time.", "Let's keep communication open across all departments.", "Could you send me an invite for the call?", "I am writing to confirm our appointment for tomorrow.", "We need to align our strategy with client needs.", "Thank you for bringing this issue to my attention.", "Please let me know if you need any additional information.", "I will get back to you with an answer shortly.", "We had a very productive discussion in today's session.", "Let's keep this discussion concise and focused.", "Can you prepare a summary of the key takeaways?", "We are excited to announce our new product feature.", "I appreciate your timely cooperation in this matter.", "Please review the attached contract carefully.", "We need to resolve this issue as soon as possible.", "Let me know your availability for a quick sync.", "The feedback from our clients has been overwhelmingly positive.", "We must focus on delivering high quality work.", "Please submit your expenses by Friday afternoon.", "I am confident that we will meet our targets.", "Let's streamline our daily operational processes.", "Thank you all for your valuable contributions today.", "Please ensure all safety protocols are strictly followed.", "We are expanding our team to handle new projects.", "I will take ownership of this task going forward.", "Let's review the budget allocations for next quarter.", "Your dedication to excellence is truly commendable.", "Could you share your screen during the presentation?", "We look forward to a successful partnership with you.", "Please log your working hours in the portal.", "Let's schedule a follow-up call next week.", "English Spur is committed to professional growth."], "3. Travel, Transport & Directions": ["Where is the nearest train station located?", "How much does a ticket to the city center cost?", "Could you tell me which platform the train leaves from?", "I would like to book a window seat, please.", "Is this flight running on schedule or delayed?", "Could you help me carry this heavy suitcase?", "How long does it take to reach the airport?", "Is there a reliable taxi stand around here?", "Please keep your seatbelts fastened throughout the flight.", "Excuse me, is this seat currently taken?", "We have reached our destination safely.", "Can I get a physical map of the tourist places?", "Where can I collect my check-in luggage?", "I need to call a cab right away.", "Is there heavy traffic on the highway today?", "What time does the last bus depart from here?", "Please show your boarding pass at the gate.", "I missed my connecting train to the city.", "Are there any good hotel recommendations nearby?", "Enjoy your journey and stay safe on the road.", "How far is the beach from our hotel?", "Is breakfast included in our room reservation?", "Could you recommend a good local sightseeing spot?", "Can I pay for the fare using my credit card?", "I would like to extend my stay for two more days.", "Where is the emergency exit located?", "What time is check-out tomorrow morning?", "Is there free Wi-Fi available in the lobby?", "Please call the reception if you need anything.", "I left my jacket in the taxi by mistake.", "Which bus route goes directly to the museum?", "Could you print my boarding pass for me?", "Is it safe to walk around here at night?", "I would like to exchange some currency, please.", "How frequent are the metro trains on this line?", "The view from our room is absolutely stunning.", "Please confirm my return flight reservation.", "Where can I hire a rental car for the weekend?", "Is there a petrol station along this route?", "We had a smooth and pleasant flight today.", "Could you direct me to the nearest washroom?", "Is there a direct train to the capital city?", "I am visiting this place for the very first time.", "The driver was very polite and helpful.", "Make sure to keep your passport in a safe place.", "What is the local currency used in this region?", "I need to check in my bags at the counter.", "Can you wake me up at six in the morning?", "We enjoyed exploring the historic sights.", "English Spur wishes you a wonderful trip ahead."], "4. Shopping, Dining & Hospitality": ["How much does this blue jacket cost?", "Do you accept mobile payments or credit cards?", "Could I please see the dinner menu?", "I would like to order a glass of fresh orange juice.", "Is there any special discount on this item?", "Can I try this shirt on in the fitting room?", "Where can I find the fresh produce aisle?", "Could we please get the check for our table?", "The food served here was absolutely delicious.", "Do you have these shoes in a larger size?", "I am looking for a nice gift for my friend.", "Is this dish suitable for vegetarians?", "Could you bring us some extra napkins, please?", "The service at this restaurant is prompt and friendly.", "I would like to return this item with my receipt.", "Do you offer free home delivery for grocery items?", "Keep the change from the bill amount.", "What are today's special recommendations from the chef?", "Can I get this order packed for takeaway?", "Thank you for the excellent customer service.", "Is this product currently in stock?", "I would like to order two coffees and a sandwich.", "Could you make my dish a little less spicy?", "Do you have any gluten-free dessert options?", "Where is the checkout counter located?", "Can I pay for this item using cash?", "This shirt fits me perfectly well.", "Do you offer gift wrapping services?", "Is there a warranty included with this device?", "The ambiance of this cafe is very pleasant.", "We would like to reserve a table for four.", "Excuse me, we haven't received our order yet.", "Everything tasted fresh and full of flavor.", "Could I get a glass of iced water, please?", "Are these vegetables grown locally?", "I am looking for a pair of black trousers.", "Can you show me some other designs in this price range?", "This price seems very reasonable for this quality.", "Thank you for recommending this dish to us.", "We will definitely visit this place again.", "Do you have a loyalty card program?", "I would like to place an online order.", "Is there an extra charge for delivery?", "Can I exchange this for a different color?", "The portion size was quite generous.", "Could we sit near the window, please?", "The tea was served nice and hot.", "I am very satisfied with my purchase today.", "Please accept my heartfelt appreciation.", "English Spur helps you communicate confidently everywhere."], "5. Health, Fitness & Medical": ["I need to make an appointment with the doctor.", "I have been feeling unwell since yesterday morning.", "Where is the nearest pharmacy located?", "Take this medicine twice a day after meals.", "I have a mild headache and fever today.", "You should drink plenty of water to stay hydrated.", "Is there any side effect to this prescription medicine?", "Please take rest for at least a couple of days.", "I am allergic to certain types of food.", "How long will it take to recover completely?", "Make sure to wash your hands regularly.", "I need a prescription for my cough syrup.", "The doctor advised me to exercise every single day.", "I am feeling much better than yesterday.", "Is your medical clinic open on Sunday afternoon?", "Please check my blood pressure reading.", "Eat fresh fruits and vegetables daily for health.", "I need to get a routine health checkup done.", "Remember to take your daily vitamins on time.", "Stay home if you feel sick or fatigued.", "Walking for thirty minutes daily keeps you fit.", "Where can I buy a digital thermometer?", "My stomach has been hurting since morning.", "You should get at least eight hours of sleep.", "The doctor prescribed a few diagnostic tests.", "I am feeling a bit dizzy right now.", "Proper nutrition is essential for a healthy body.", "I need to schedule a dental checkup.", "Her recovery process is going very smoothly.", "Always keep a first aid kit handy at home.", "Deep breathing exercises help reduce stress.", "I am trying to maintain a healthy lifestyle.", "Make sure to stretch before working out.", "How often should I take this medication?", "The doctor was very gentle and understanding.", "I am feeling completely energized today.", "Drink warm water if you have a sore throat.", "Protect your eyes from prolonged screen time.", "A balanced diet is the foundation of wellness.", "Regular checkups help prevent health problems.", "I need to consult a specialist for my back pain.", "Stay active and avoid sitting for too long.", "Mental health is just as important as physical health.", "Take good care of your physical well-being.", "She is recovering quickly after the surgery.", "I feel refreshed after a good night's sleep.", "Avoid eating too much junk food.", "Practice mindfulness to keep your mind calm.", "Health is indeed the greatest wealth.", "English Spur encourages healthy habits and learning."], "6. Education, Learning & Self-Improvement": ["Practicing English daily builds immense confidence.", "English Spur is helping thousands of learners every day.", "Listening carefully is the key to mastering pronunciation.", "Don't worry about making minor mistakes while speaking.", "Consistency is far more important than perfection.", "Reading English articles expands your vocabulary quickly.", "Try to think in English rather than translating literally.", "Shadowing native speakers improves your accent dramatically.", "Set aside at least fifteen minutes every day for practice.", "Every mistake you make is a step toward fluency.", "Knowledge grows when you share it with others.", "Learning a new language opens up endless opportunities.", "Practice makes a person perfect in any skill.", "I love reading informative books in my free time.", "Our goal is to speak English naturally and fluently.", "Keep practicing until it becomes second nature.", "Focus on understanding the concept rather than memorizing.", "You are making noticeable progress every single day.", "English Spur is your dedicated learning companion.", "Never hesitate to ask questions when in doubt.", "Learning is a lifelong continuous journey.", "Writing down new vocabulary helps you remember it.", "Set achievable goals for your learning routine.", "Celebrate small victories on your learning path.", "Surround yourself with positive and motivating people.", "Curiosity is the engine of intellectual achievement.", "Dedication always brings great results over time.", "Believing in your potential is the first step.", "You can achieve anything with steady effort.", "Improvement happens step by step every day.", "Expand your horizons by learning new skills.", "Stay dedicated to your daily practice goals.", "Language learning broadens your cultural perspective.", "Make habit building a top priority in life.", "Your hard work will pay off in the long run.", "Confidence comes from repeated practice and effort.", "Challenge yourself to step out of your comfort zone.", "English Spur makes English learning enjoyable and effective.", "Keep pushing your limits every day.", "Stay curious and keep exploring new topics.", "Mastering communication skills transforms your career.", "Learn from yesterday, live for today, hope for tomorrow.", "Education is the most powerful weapon you can use.", "Small habits make a massive difference over time.", "Stay focused on your journey of personal growth.", "Practice dictation to sharpen your listening skills.", "Fluency is achieved through active daily practice.", "Keep your enthusiasm high throughout the journey.", "You have the power to shape your own future.", "English Spur stands with you at every step."], "7. Socializing, Friends & Family": ["It's great to see you again after such a long time.", "How have you been keeping lately?", "What have you been up to these past few days?", "Give my warm regards to your family members.", "It was really wonderful catching up with you.", "Let's make sure to meet up again very soon.", "Hope you have a pleasant rest of the day.", "How are things going at your end?", "I couldn't agree more with what you said.", "That sounds like a fantastic idea to me.", "We had so much fun at the family gathering.", "I am so proud of my brother's achievement.", "Friends are the treasures of human life.", "Thank you for always being there for me.", "We shared many fond memories together in school.", "Let's organize a weekend get-together for everyone.", "My family is planning a short vacation next month.", "It's always heartwarming to spend time with loved ones.", "We laughed so hard at his funny jokes.", "True friendship stands strong through all seasons.", "I am grateful for your constant support.", "Let's celebrate this wonderful occasion together.", "Wishing you a very happy birthday filled with joy.", "Congratulations on your big success, my friend.", "We had a wonderful picnic in the garden.", "Family time is the most precious time of all.", "Thank you for inviting me to your party.", "I really appreciate your kind words of encouragement.", "Let me introduce you to my close colleague.", "We had a long phone chat yesterday evening.", "It feels great to reconnect with old friends.", "May your home be filled with happiness and health.", "We are organizing a surprise party for her.", "Spending time with family recharges my spirit.", "I cherish every moment spent with good friends.", "Let's make some unforgettable memories together today.", "Sending you lots of love and best wishes.", "We had a delicious home-cooked family dinner.", "Thank you for being such a dependable friend.", "Togetherness brings immense warmth to our hearts.", "I am blessed to have such supportive parents.", "Let's share a good laugh over a hot cup of tea.", "Your presence made the event extra special.", "We enjoyed playing board games together last night.", "I am always here for you whenever you need me.", "Friendship is built on trust and understanding.", "Let's stay connected no matter how busy we get.", "My family is my biggest source of strength.", "Wishing you all the happiness in the world.", "English Spur brings people closer through communication."], "8. Technology, Internet & Media": ["Please check your internet connection and try again.", "I am sending you the link via instant message.", "Don't forget to save your file before closing.", "Artificial intelligence is transforming many industries rapidly.", "Make sure to update your mobile applications regularly.", "I need to charge my smartphone battery right away.", "Is free Wi-Fi service available at this location?", "Please subscribe to our YouTube channel for updates.", "I lost my internet connection during the live stream.", "Technology makes remote collaboration seamless and easy.", "Keep your account password safe and confidential.", "I downloaded a very useful app for language practice.", "Social media connects people from all across the globe.", "Please turn off your electronic devices during takeoff.", "I received a notification on my smartwatch today.", "Cloud storage allows you to access files anywhere.", "Make sure your computer operating system is updated.", "I love watching educational videos on YouTube.", "Digital tools have simplified our daily routines.", "Always verify news sources before sharing online.", "I am setting up a new user account today.", "Please share your feedback in the comment section.", "Online learning platforms offer incredible flexibility.", "Backup your important documents on an external drive.", "Technology empowers us to learn at our own pace.", "I am reading an interesting article on my tablet.", "The software update includes several security improvements.", "Make sure to log out of public computers after use.", "Video calling allows us to see loved ones far away.", "High-speed internet has made streaming effortless.", "Protect your personal information while browsing online.", "I am listening to a fascinating podcast on English Spur.", "Digital literacy is essential in today's modern world.", "The website interface is user-friendly and responsive.", "Please scan the QR code to access the material.", "E-books make carrying a library effortless.", "Automation helps save valuable time on routine tasks.", "Stay cautious against suspicious emails and phishing links.", "The camera quality on this phone is remarkable.", "I set a daily reminder on my phone app.", "Smart technology is shaping the future of education.", "The audio quality of this stream is crystal clear.", "Our digital platform is designed for optimal learning.", "Explore creative tools to enhance your productivity.", "Technology brings interactive learning to your fingertips.", "Make good use of online educational resources.", "I posted an update on my official profile.", "The video playback was smooth and uninterrupted.", "Embrace technology to accelerate your learning curve.", "English Spur leverages technology to empower learners worldwide."], "9. Emotions, Mindset & Motivation": ["Believe in yourself and you are halfway to success.", "Your attitude determines your direction in life.", "Small daily improvements lead to massive long-term results.", "Never stop learning because life never stops teaching.", "Stay positive, work hard, and make it happen.", "Failure is simply an opportunity to begin again wiser.", "Patience and perseverance conquer all obstacles eventually.", "Your future is created by what you do today.", "Focus on your progress rather than perfection.", "Every day is a fresh opportunity to grow.", "Hard work always beats talent when talent doesn't work hard.", "Doubt kills more dreams than failure ever will.", "Be kind to yourself as you learn and grow.", "Great things take time, so stay patient and persistent.", "Your potential is limited only by your imagination.", "Surround yourself with people who lift you higher.", "Gratitude turns what we have into enough.", "Rise above the challenges and keep moving forward.", "Success belongs to those who prepare for it today.", "A positive mindset attracts positive outcomes.", "Do something today that your future self will thank you for.", "Courage is not the absence of fear, but triumph over it.", "Keep your eyes on the stars and feet on the ground.", "You are capable of achieving far more than you think.", "Dream big, work hard, stay humble, and stay focused.", "Every journey begins with a single bold step.", "Embrace challenges as valuable learning opportunities.", "Consistency turns average performance into excellence.", "Stay hungry for knowledge and personal growth.", "Happiness comes from within your own mindset.", "Focus on solutions rather than dwelling on problems.", "Your dedication today builds your success tomorrow.", "Believe that you can and you certainly will.", "Mistakes are proof that you are trying hard.", "Nurture a growth mindset every single day.", "Stay resilient in the face of difficulties.", "You are stronger than any hardship you encounter.", "Keep striving for excellence in everything you do.", "Self-discipline is the bridge between goals and accomplishment.", "Transform your mindset and you transform your life.", "Be the change you wish to see around you.", "Focus your energy on things you can control.", "Every setback is a setup for a stronger comeback.", "Celebrate how far you have come already.", "Inspiration exists, but it must find you working.", "You have the strength within you to succeed.", "Keep a hopeful heart and a focused mind.", "Consistency is the secret sauce of all achievements.", "English Spur is proud to inspire your growth every day.", "You are on the path to becoming your best self."], "10. General Life, Hobbies & Environment": ["I love reading inspirational books on rainy afternoons.", "Gardening is a therapeutic hobby that brings peace.", "Nature has a wonderful way of soothing the mind.", "Listening to calm music helps me relax completely.", "Cooking a new recipe is always a fun adventure.", "We should plant more trees to protect our environment.", "Recycling waste materials helps keep our planet clean.", "Painting allows me to express my creative ideas.", "Taking photos captures precious moments forever.", "Walking in nature recharges my mental energy.", "I enjoy playing acoustic guitar during my free time.", "Protecting wildlife is crucial for ecological balance.", "Fresh mountain air is incredibly invigorating.", "I am learning how to bake fresh bread at home.", "Writing in a daily journal keeps my thoughts organized.", "Conserving water is an important responsibility for everyone.", "Solar energy is a clean and renewable power source.", "I love watching sunsets by the peaceful seashore.", "Hobbies bring balance and joy to our busy lives.", "Riding a bicycle is great exercise and eco-friendly.", "Star gazing on a clear night is truly mesmerizing.", "I enjoy solving challenging crossword puzzles.", "Keeping your room organized creates mental clarity.", "Cooking meals together brings families closer.", "Early morning air is clean, crisp, and fresh.", "Let's reduce single-use plastic bags in our daily lives.", "Playing chess sharpens strategic thinking skills.", "I enjoy visiting art galleries and museums.", "Cleanliness is essential for a healthy community.", "Spending time near water brings inner tranquility.", "Handmade gifts carry deep personal warmth.", "I love capturing candid moments with my camera.", "Yoga helps maintain physical balance and peace of mind.", "Reading expands your imagination like nothing else.", "Let's protect our rivers and oceans from pollution.", "Baking treats for friends brings immense joy.", "Learning a musical instrument requires patience.", "Morning sunlight provides essential Vitamin D.", "I enjoy taking long evening drives in the countryside.", "Every season brings its own unique beauty.", "Simple living and high thinking enrich our lives.", "Creating art is a wonderful form of self-expression.", "Let's practice sustainable living habits daily.", "Bird watching is a peaceful and rewarding activity.", "A tidy workspace enhances productivity and focus.", "Music speaks what cannot be expressed in words.", "Spending quiet time alone helps self-reflection.", "Caring for pets teaches empathy and responsibility.", "Protecting nature ensures a safe future for all.", "English Spur empowers you to express every thought clearly."]};
+
+    // Unified Pro Application State Management
+    let state = {
+        score: 0,
+        streak: 0,
+        correctCount: 0,
+        activeCategory: Object.keys(data)[0],
+        topicProgress: {},
+        completedSentences: {},
+        speechRate: 0.85
+    };
+
+    // Load State from LocalStorage
+    function loadStateFromStorage() {
+        const saved = localStorage.getItem('english_spur_pro_state');
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                state = { ...state, ...parsed };
+            } catch (e) {
+                console.error("Storage parse error, resetting state", e);
+            }
+        }
+    }
+
+    // Save State to LocalStorage
+    function saveStateToStorage() {
+        localStorage.setItem('english_spur_pro_state', JSON.stringify(state));
+    }
+
+    loadStateFromStorage();
+
+    let currentCategoryKeys = Object.keys(data);
+    let selectedCategory = (state.activeCategory && data[state.activeCategory]) ? state.activeCategory : currentCategoryKeys[0];
+    let currentIndex = (state.topicProgress[selectedCategory] !== undefined) ? state.topicProgress[selectedCategory] : 0;
+
+    const categorySelect = document.getElementById('categorySelect');
+    const stepInfo = document.getElementById('stepInfo');
+    const completionStatus = document.getElementById('completionStatus');
+    const userInput = document.getElementById('userInput');
+    const resultBox = document.getElementById('resultBox');
+    const resultText = document.getElementById('resultText');
+    const correctAns = document.getElementById('correctAns');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const speedBtn = document.getElementById('speedBtn');
+
+    // Procedural Sound Synthesizer (Web Audio API) for Instant Feedback
+    function playAudioTone(type) {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.35);
+            } else if (type === 'error') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(220, ctx.currentTime);
+                osc.frequency.setValueAtTime(174.61, ctx.currentTime + 0.12);
+                gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.4);
+            }
+        } catch(e) {}
+    }
+
+    function initCategories() {
+        categorySelect.innerHTML = '';
+        currentCategoryKeys.forEach((cat) => {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            
+            let catCompleted = 0;
+            data[cat].forEach((_, idx) => {
+                if (state.completedSentences[`${cat}_${idx}`]) catCompleted++;
+            });
+
+            opt.textContent = cat + ` (${catCompleted}/${data[cat].length} Solved)`;
+            if (cat === selectedCategory) opt.selected = true;
+            categorySelect.appendChild(opt);
+        });
+        loadSentence();
+    }
+
+    function changeCategory() {
+        selectedCategory = categorySelect.value;
+        state.activeCategory = selectedCategory;
+        
+        currentIndex = (state.topicProgress[selectedCategory] !== undefined) ? state.topicProgress[selectedCategory] : 0;
+        
+        saveStateToStorage();
+        loadSentence();
+    }
+
+    function loadSentence() {
+        userInput.value = '';
+        resultBox.style.display = 'none';
+
+        const totalSentences = data[selectedCategory].length;
+        stepInfo.textContent = `Sentence ${currentIndex + 1} of ${totalSentences}`;
+
+        const sentenceKey = `${selectedCategory}_${currentIndex}`;
+        if (state.completedSentences[sentenceKey]) {
+            completionStatus.textContent = "✅ Completed";
+            completionStatus.className = "status-badge status-completed";
+        } else {
+            completionStatus.textContent = "⏳ Pending";
+            completionStatus.className = "status-badge status-pending";
+        }
+
+        prevBtn.disabled = (currentIndex === 0);
+        nextBtn.disabled = (currentIndex === totalSentences - 1);
+
+        state.activeCategory = selectedCategory;
+        state.topicProgress[selectedCategory] = currentIndex;
+        saveStateToStorage();
+    }
+
+    function updateStatsDisplay() {
+        document.getElementById('scoreDisplay').textContent = state.score + " PTS";
+        document.getElementById('streakDisplay').textContent = "🔥 " + state.streak;
+        
+        let accuracyPercent = Math.min(100, Math.round((state.correctCount / TOTAL_SYSTEM_SENTENCES) * 100));
+        
+        const accuracyDisplay = document.getElementById('accuracyDisplay');
+        const accuracyBarFill = document.getElementById('accuracyBarFill');
+
+        accuracyDisplay.textContent = accuracyPercent + "%";
+        accuracyBarFill.style.width = accuracyPercent + "%";
+
+        if (accuracyPercent < 50) {
+            accuracyBarFill.className = "accuracy-bar-fill bar-purple";
+        } else if (accuracyPercent < 90) {
+            accuracyBarFill.className = "accuracy-bar-fill bar-yellow";
+        } else {
+            accuracyBarFill.className = "accuracy-bar-fill bar-green";
+        }
+
+        let badge = "🥉 Beginner";
+        if (state.score >= 500) badge = "🔥 English Spur Champion";
+        else if (state.score >= 300) badge = "🏆 Master";
+        else if (state.score >= 150) badge = "🥇 Scholar";
+        else if (state.score >= 50) badge = "🥈 Learner";
+
+        document.getElementById('badgeDisplay').textContent = badge;
+
+        saveStateToStorage();
+    }
+
+    function resetProgress() {
+        if (confirm("Are you sure you want to reset all scores, streak, badges, and progress?")) {
+            state = {
+                score: 0,
+                streak: 0,
+                correctCount: 0,
+                activeCategory: currentCategoryKeys[0],
+                topicProgress: {},
+                completedSentences: {},
+                speechRate: 0.85
+            };
+            selectedCategory = currentCategoryKeys[0];
+            currentIndex = 0;
+            localStorage.removeItem('english_spur_pro_state');
+            initCategories();
+            updateStatsDisplay();
+        }
+    }
+
+    function toggleSpeed() {
+        if (state.speechRate === 0.85) {
+            state.speechRate = 0.6;
+            speedBtn.textContent = "🐢 Speed: 0.60x (Slow)";
+        } else {
+            state.speechRate = 0.85;
+            speedBtn.textContent = "⚡ Speed: 0.85x (Normal)";
+        }
+        saveStateToStorage();
+    }
+
+    function playCurrentAudio() {
+        if (!('speechSynthesis' in window)) {
+            alert("Your browser does not support Speech Synthesis audio.");
+            return;
+        }
+        window.speechSynthesis.cancel();
+        
+        const textToSpeech = data[selectedCategory][currentIndex];
+        const utterance = new SpeechSynthesisUtterance(textToSpeech);
+        utterance.lang = 'en-US';
+        utterance.rate = state.speechRate;
+        
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function cleanText(text) {
+        if (!text) return "";
+        return text
+            .toLowerCase()
+            .replace(/they're/g, "they are")
+            .replace(/it's/g, "it is")
+            .replace(/don't/g, "do not")
+            .replace(/i'm/g, "i am")
+            .replace(/you'll/g, "you will")
+            .replace(/we're/g, "we are")
+            .replace(/can't/g, "cannot")
+            .replace(/isn't/g, "is not")
+            .replace(/aren't/g, "are not")
+            .replace(/doesn't/g, "does not")
+            .replace(/let's/g, "let us")
+            .replace(/that's/g, "that is")
+            .replace(/i've/g, "i have")
+            .replace(/won't/g, "will not")
+            .replace(/couldn't/g, "could not")
+            .replace(/shouldn't/g, "should not")
+            .replace(/wouldn't/g, "would not")
+            .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?']/g, "")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    function giveHint() {
+        const actualText = data[selectedCategory][currentIndex];
+        const words = actualText.split(' ');
+        const currentTyped = userInput.value.trim().split(' ');
+        
+        let hintWords = [];
+        for (let i = 0; i < currentTyped.length && i < words.length; i++) {
+            hintWords.push(words[i]);
+        }
+        if (hintWords.length < words.length) {
+            hintWords.push(words[hintWords.length]);
+        }
+        
+        userInput.value = hintWords.join(' ');
+
+        if (state.score >= 2) {
+            state.score -= 2;
+        }
+        updateStatsDisplay();
+    }
+
+    function checkAnswer() {
+        const rawUser = userInput.value;
+        if (!rawUser.trim()) {
+            alert("Please type your answer before checking.");
+            return;
+        }
+
+        const userClean = cleanText(rawUser);
+        const actualText = data[selectedCategory][currentIndex];
+        const actualClean = cleanText(actualText);
+        const sentenceKey = `${selectedCategory}_${currentIndex}`;
+
+        resultBox.style.display = 'block';
+
+        if (userClean === actualClean) {
+            playAudioTone('correct');
+            
+            if (!state.completedSentences[sentenceKey]) {
+                state.completedSentences[sentenceKey] = true;
+                state.score += 10;
+                state.streak += 1;
+                state.correctCount += 1;
+            }
+
+            resultBox.className = 'result-box success';
+            resultText.textContent = "🎉 Excellent! Your answer is 100% correct!";
+            correctAns.textContent = "";
+            
+            completionStatus.textContent = "✅ Completed";
+            completionStatus.className = "status-badge status-completed";
+
+            initCategories();
+        } else {
+            playAudioTone('error');
+            
+            state.streak = 0;
+
+            resultBox.className = 'result-box error';
+            resultText.textContent = "❌ Oops! There is a mismatch. Keep trying!";
+            correctAns.textContent = `Correct Sentence: "${actualText}"`;
+        }
+
+        updateStatsDisplay();
+    }
+
+    function navigateSentence(direction) {
+        const total = data[selectedCategory].length;
+        const newIndex = currentIndex + direction;
+        if (newIndex >= 0 && newIndex < total) {
+            currentIndex = newIndex;
+            loadSentence();
+        }
+    }
+
+    userInput.addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+            checkAnswer();
+        }
+    });
+
+    if (state.speechRate === 0.6) {
+        speedBtn.textContent = "🐢 Speed: 0.60x (Slow)";
+    } else {
+        speedBtn.textContent = "⚡ Speed: 0.85x (Normal)";
+    }
+
+    initCategories();
+    updateStatsDisplay();
+</script>
+
+</body>
+</html>
